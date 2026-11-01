@@ -1,0 +1,15 @@
+node_modules
+dist
+*.local
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea
+/tests/.praat-cache
+__pycache__
+.screens
+.netlify

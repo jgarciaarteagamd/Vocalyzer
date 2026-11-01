@@ -1,0 +1,11 @@
+{
+  "name": "Vocalyzer",
+  "short_name": "Vocalyzer",
+  "description": "Evaluación acústica de la voz en el navegador.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
