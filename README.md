@@ -134,6 +134,13 @@ python3 scripts/praat_reference.py
    (Netlify) y `vercel.json` (Vercel) para que funcionen los enlaces `/p/...`. El micrófono exige
    HTTPS.
 
+## Evitar la pausa del plan gratuito de Supabase
+
+Supabase pausa los proyectos gratuitos con poca actividad durante 7 días. La función programada
+`netlify/functions/keepalive.mts` llama cada 6 horas a la función de base de datos `keepalive()`
+(migración `20261102000000_keepalive.sql`) para registrar actividad. Solo se ejecuta en la versión
+publicada; puede verse en Netlify → *Logs → Functions → keepalive* (y lanzarse con *Run now*).
+
 ## Limitaciones conocidas
 
 - Micrófonos de móvil no calibrados y con respuesta en frecuencia variable: no se informan niveles

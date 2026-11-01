@@ -2,7 +2,7 @@
 // `auth` schema and checks the Row Level Security rules.
 import { beforeAll, describe, expect, it } from "vitest";
 import { PGlite } from "@electric-sql/pglite";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const D1 = "11111111-1111-1111-1111-111111111111";
@@ -39,9 +39,13 @@ beforeAll(async () => {
     CREATE PUBLICATION supabase_realtime;
     INSERT INTO auth.users VALUES ('${D1}'), ('${D2}');
   `);
-  const sql = readFileSync(join(__dirname, "..", "supabase", "migrations", "20261031000000_vocalyzer_init.sql"), "utf8");
-  await db.exec(sql);
-  await db.exec(sql); // must be idempotent
+  const dir = join(__dirname, "..", "supabase", "migrations");
+  const files = readdirSync(dir).filter((f) => f.endsWith(".sql")).sort();
+  for (const f of files) {
+    const sql = readFileSync(join(dir, f), "utf8");
+    await db.exec(sql);
+    await db.exec(sql); // every migration must be idempotent
+  }
 });
 
 describe("voice_results RLS", () => {
@@ -82,5 +86,13 @@ describe("voice_results RLS", () => {
   it("doctors delete only their own rows", async () => {
     expect((await as("authenticated", D2, "DELETE FROM public.voice_results RETURNING id")).rows).toHaveLength(0);
     expect((await as("authenticated", D1, "DELETE FROM public.voice_results RETURNING id")).rows).toHaveLength(2);
+  });
+});
+
+describe("keepalive", () => {
+  it("anonymous clients can call keepalive() (used by the scheduled Netlify function)", async () => {
+    const r = await as("anon", null, "SELECT public.keepalive() AS t");
+    expect(r.ok).toBe(true);
+    expect(r.rows).toHaveLength(1);
   });
 });
