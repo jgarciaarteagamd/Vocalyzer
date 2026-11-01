@@ -12,3 +12,4 @@ dist
 /tests/.praat-cache
 __pycache__
 .screens
+.netlify
