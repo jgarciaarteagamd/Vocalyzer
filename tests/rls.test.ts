@@ -29,6 +29,7 @@ const insert = (doctor: string) =>
 beforeAll(async () => {
   db = new PGlite();
   await db.exec(`
+    REVOKE ALL ON SCHEMA public FROM PUBLIC; -- no implicit access: the migration must grant it
     CREATE ROLE anon NOLOGIN; CREATE ROLE authenticated NOLOGIN; CREATE ROLE service_role NOLOGIN BYPASSRLS;
     CREATE SCHEMA auth;
     CREATE TABLE auth.users (id uuid PRIMARY KEY);
@@ -41,7 +42,6 @@ beforeAll(async () => {
   const sql = readFileSync(join(__dirname, "..", "supabase", "migrations", "20261031000000_vocalyzer_init.sql"), "utf8");
   await db.exec(sql);
   await db.exec(sql); // must be idempotent
-  await db.exec("GRANT USAGE ON SCHEMA public TO anon, authenticated;");
 });
 
 describe("voice_results RLS", () => {

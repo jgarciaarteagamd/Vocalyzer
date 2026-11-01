@@ -64,6 +64,12 @@ GRANT USAGE ON SCHEMA private TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION private.doctor_exists(uuid) TO anon;
 
 -- ---------------------------------------------------------------------------------------------
+-- The Data API roles need USAGE on the public schema. Granted explicitly so the migration also
+-- works when the project was created with "Automatically expose new tables" disabled
+-- (Supabase's recommended setting): every privilege below is granted explicitly.
+GRANT USAGE ON SCHEMA public TO anon, authenticated;
+
+-- ---------------------------------------------------------------------------------------------
 -- Voice results (numerical only)
 CREATE TABLE IF NOT EXISTS public.voice_results (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),

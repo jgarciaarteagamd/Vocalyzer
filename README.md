@@ -107,11 +107,14 @@ python3 scripts/praat_reference.py
 
 ## Puesta en marcha
 
-1. **Supabase**: cree un proyecto (región UE recomendada) y ejecute
-   `supabase/migrations/20261031000000_vocalyzer_init.sql` en el SQL Editor. La migración es
-   idempotente y también puede ejecutarse en el mismo proyecto que ENT Quest (reutiliza
-   `doctor_profiles` y `private.doctor_exists` si ya existen), de modo que los médicos usen la misma
-   cuenta en ambas aplicaciones.
+1. **Supabase**: cree un proyecto (región UE recomendada). En *Seguridad* deje marcada «Habilitar
+   la API de datos»; «Exponer automáticamente nuevas tablas» puede desmarcarse (recomendado: la
+   migración concede explícitamente cada permiso). Una vez creado, abra **SQL Editor** (menú
+   lateral) → **New query**, pegue el contenido de
+   `supabase/migrations/20261031000000_vocalyzer_init.sql` y pulse **Run** (debe responder
+   «Success. No rows returned»). La migración es idempotente y también puede ejecutarse en el mismo
+   proyecto que ENT Quest (reutiliza `doctor_profiles` y `private.doctor_exists` si ya existen), de
+   modo que los médicos usen la misma cuenta en ambas aplicaciones.
 2. **Auth** (Authentication → URL Configuration): ponga como *Site URL* el dominio público de
    Vocalyzer y añada `https://SU-DOMINIO/panel` a *Redirect URLs* (enlace de verificación de email).
 3. **Variables de entorno** (copie `.env.example` a `.env.local`):
