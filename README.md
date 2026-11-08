@@ -1,3 +1,7 @@
+> **Vocalyzer ahora es ENT Senses Voice.** Este repositorio queda solo como histórico: todas sus
+> páginas redirigen a [entsenses.app](https://entsenses.app) (`public/_redirects`). El código vive en
+> [`jgarciaarteagamd/entsenses`](https://github.com/jgarciaarteagamd/entsenses).
+
 # Vocalyzer
 
 Evaluación acústica de la voz **en el navegador**. El paciente escanea un código QR, acepta las
