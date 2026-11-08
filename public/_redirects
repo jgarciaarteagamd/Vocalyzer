@@ -1,1 +1,14 @@
-/*    /index.html   200
+# Vocalyzer is now ENT Senses Voice: every page redirects permanently to its equivalent on
+# https://entsenses.app (query strings are kept). The first matching rule wins.
+/                   https://entsenses.app/                        301!
+/evaluar            https://entsenses.app/voice/evaluar           301!
+/informe/*          https://entsenses.app/bandeja?m=voice         301!
+/bandeja            https://entsenses.app/bandeja?m=voice         301!
+/imprimir-qr        https://entsenses.app/imprimir-qr?m=voice     301!
+/panel              https://entsenses.app/panel                   301!
+/configuracion      https://entsenses.app/configuracion           301!
+/auth               https://entsenses.app/auth                    301!
+/legal/terminos     https://entsenses.app/legal/terminos          301!
+/legal/privacidad   https://entsenses.app/legal/privacidad        301!
+# Old patient links belong to the old database: send them to the home page.
+/*                  https://entsenses.app/                        301!
